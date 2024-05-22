@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form - Fashion Website</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Fashion Brand</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="index.html">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="about.html">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="products.html">Products</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="contact.html">Contact</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="reviews.html">Reviews</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="resources.html">Resources</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="form.html">Form</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1 id="datetime"></h1>
+        <h2>Submit Your Details</h2>
+        <form id="customForm">
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" class="form-control" id="name" required>
+                <div class="invalid-feedback">Please enter your name.</div>
+            </div>
+            <div class="form-group">
+                <label for="age">Age</label>
+                <input type="number" class="form-control" id="age" required>
+                <div class="invalid-feedback">Please enter a valid age.</div>
+            </div>
+            <div class="form-group">
+                <label>Gender</label><br>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="gender" id="male" value="male">
+                    <label class="form-check-label" for="male">Male</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="gender" id="female" value="female">
+                    <label class="form-check-label" for="female">Female</label>
+                </div>
+                <div class="invalid-feedback">Please select your gender.</div>
+            </div>
+            <div class="form-group">
+                <label for="quantity">Item Quantity</label>
+                <input type="number" class="form-control" id="quantity" required>
+                <div class="invalid-feedback">Please enter a valid quantity.</div>
+            </div>
+            <div class="form-group">
+                <label for="income">Income</label>
+                <input type="number" class="form-control" id="income" required>
+                <div class="invalid-feedback">Please enter your income.</div>
+            </div>
+            <div class="form-group">
+                <label>Interests</label><br>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="fashion" value="fashion">
+                    <label class="form-check-label" for="fashion">Fashion</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="sports" value="sports">
+                    <label class="form-check-label" for="sports">Sports</label>
+                </div>
+                <div class="invalid-feedback">Please select at least one interest.</div>
+            </div>
+            <div class="form-group">
+                <label for="comments">Comments</label>
+                <textarea class="form-control" id="comments" rows="3" required></textarea>
+                <div class="invalid-feedback">Please enter your comments.</div>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+        <h3>Report</h3>
+        <textarea id="report" class="form-control" rows="5" readonly></textarea>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Fashion Brand. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('datetime').textContent = new Date().toLocaleString();
+
+        document.getElementById('customForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            let valid = true;
+            let report = '';
+
+            const name = document.getElementById('name').value.trim();
+            const age = document.getElementById('age').value;
+            const gender = document.querySelector('input[name="gender"]:checked');
+            const quantity = document.getElementById('quantity').value;
+            const income = document.getElementById('income').value;
+            const interests = document.querySelectorAll('input[type="checkbox"]:checked');
+            const comments = document.getElementById('comments').value.trim();
+
+            if (!name) {
+                document.getElementById('name').classList.add('is-invalid');
+                valid = false;
+            } else {
+                document.getElementById('name').classList.remove('is-invalid');
+            }
+
+            if (!age || age <= 0) {
+                document.getElementById('age').classList.add('is-invalid');
+                valid = false;
+            } else {
+                document.getElementById('age').classList.remove('is-invalid');
+            }
+
+            if (!gender) {
+                document.querySelector('input[name="gender"]').classList.add('is-invalid');
+                valid = false;
+            } else {
+                document.querySelector('input[name="gender"]').classList.remove('is-invalid');
+            }
+
+            if (!quantity || quantity <= 0) {
+                document.getElementById('quantity').classList.add('is-invalid');
+                valid = false;
+            } else {
+                document.getElementById('quantity').classList.remove('is-invalid');
+            }
+
+            if (!income || income <= 0) {
+                document.getElementById('income').classList.add('is-invalid');
+                valid = false;
+            } else {
+                document.getElementById('income').classList.remove('is-invalid');
+            }
+
+            if (interests.length === 0) {
+                document.querySelector('input[type="checkbox"]').classList.add('is-invalid');
+                valid = false;
+            } else {
+                document.querySelector('input[type="checkbox"]').classList.remove('is-invalid');
+            }
+
+            if (!comments) {
+                document.getElementById('comments').classList.add('is-invalid');
+                valid = false;
+            } else {
+                document.getElementById('comments').classList.remove('is-invalid');
+            }
+
+            if (valid) {
+                const interestValues = Array.from(interests).map(interest => interest.value).join(', ');
+                report = `Name: ${name}\nAge: ${age}\nGender: ${gender.value}\nQuantity: ${quantity}\nIncome: ${income}\nInterests: ${interestValues}\nComments: ${comments}`;
+                document.getElementById('report').value = report;
+            }
+        });
+    </script>
+</body>
+</html>
